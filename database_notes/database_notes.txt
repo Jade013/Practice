@@ -1,5 +1,5 @@
 
-
+//create
 /*
 INT	(123) /*4 bits of data */ /*inside the paranthesis sets the display width of the data*/
 BIGINT /* 1 byte*/
