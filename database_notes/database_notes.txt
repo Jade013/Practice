@@ -1,0 +1,52 @@
+
+
+/*
+INT	(123) /*4 bits of data */ /*inside the paranthesis sets the display width of the data*/
+BIGINT /* 1 byte*/
+FLOAT 
+DOUBLE 
+VARCHAR(10) /*CAN STORE 10 CHARS AS A STRING || USED FOR ONE-LINERS*/
+TEXT /*USED FOR COMMENTS AND BLOG POSTS*/
+DATE /*CREATE DATE*/
+DATETIME /*DATE WITH TIME(MILITARY TIME)*/
+*/
+
+/*creating table
+CREATE TABLE users (
+	id 	INT (11) NOT NULL AUTO_INCREMENT,	/*cannot be empty, and automatically creates an id for every added user*/
+    username VARCHAR(30) NOT NULL,
+    pwd VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIME, /*AUTOMATICALLY ASSIGN CURRENT TIME IF NO INPUT WAS GIVEN*/
+    PRIMARY KEY (id)	/*needs to be unique for identification*/
+);
+*/
+
+/*
+CREATE TABLE comments (
+	id INT (11) NOT NULL AUTO_INCREMENT,
+    username VARCHAR(30) NOT NULL,
+    comment_text TEXT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIME,
+    users_id INT (11) NOT NULL,		//creates a column to use for referencing another table
+    
+    PRIMARY KEY (id), 
+    FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE NO ACTION	//referencing another table and throws an error if the user is deleted
+    FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE CASCADE	//referencing another table and delete the comments when user is deleted
+    FOREIGN KEY (users_id) REFERENCES users (id) ON DELETE SET NULL	//referencing another table and deletes only the element from the users_id in the comments table
+);
+*/
+
+/*
+INSERT INTO users (username, pwd, email) VALUES ('jade', 'reapers1', 'jadey@gmail.com' );                                               //inserting data into table
+INSERT INTO comments (username, comment_text, users_id) VALUES ('jade', 'I am not happy with this anymore', 3 ); 
+UPDATE users SET username = 'adznan', pwd = 'habibi' WHERE id = 2;                                                                      //updating info absed on id (can be based on anything depending on the paraemters after WHERE)
+DELETE FROM users WHERE id = 1;                                                                                                         //deletes data depending on the id
+SELECT username, email FROM users WHERE id = 3;                                                                                         //select specific column data of table based on parameter(id)
+SELECT username, comment_text FROM comments WHERE users_id = 3;
+SELECT * FROM comments WHERE users_id = 3;                                                                                              //selects all data from a table of a specific paramater/row (id)
+SELECT * FROM users INNER JOIN comments ON users.id = comments.users_id;                                                                //combines column data together from 2 different tables using one column data that has the same value for both
+SELECT users.username, comments.comment_text, comments.created_at FROM users INNER JOIN comments ON users.id = comments.users_id;
+SELECT * FROM users LEFT JOIN comments ON users.id = comments.users_id;                                                                 //shows everything of the dependent table depending on which side it is based on, in this case its the users
+SELECT * FROM users RIGHT JOIN comments ON users.id = comments.users_id;
+*/
